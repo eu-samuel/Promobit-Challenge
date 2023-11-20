@@ -29,5 +29,25 @@ export const setMonth = (ref) => {
 
 }
 
-export const genresList = ["Ação", "Aventura", "Animação", "Comédia", "Crime", "Documentário", "Drama", "Família", "Fantasia", "História",
-    "Terror", "Musical", "Mistério", "Romance", "Ficção Científica", "Cinema TV", "Thriller", "Guerra", "Faroeste"]
+export const genresList = [
+    { name: "Ação", id: 28 }, 
+    { name: "Aventura", id: 12 }, 
+    { name: "Animação", id: 16 }, 
+    { name: "Comédia", id: 35 }, 
+    { name: "Crime", id: 80 }, 
+    { name: "Documentário", id: 99 }, 
+    { name: "Drama", id: 18 }, 
+    { name: "Família", id: 10751 }, 
+    { name: "Fantasia", id: 14 }, 
+    { name: "História", id: 36 },
+    { name: "Terror", id: 27 }, 
+    { name: "Musical", id: 10402 }, 
+    { name: "Mistério", id: 9648 }, 
+    { name: "Romance", id: 10749 }, 
+    { name: "Ficção Científica", id: 878 }, 
+    { name: "Cinema TV", id: 10770 }, 
+    { name: "Thriller", id: 53 }, 
+    { name: "Guerra", id: 10752 }, 
+    { name: "Faroeste", id: 37 }
+]
+

@@ -5,11 +5,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default function Router () {
 
+    const [filters, setFilters] = useState([]) 
     const [trending, setTrending] = useState([])
     const [topRated, setTopRated] = useState([])
     const [upcoming, setUpcoming] = useState([])
-    
-    const [genre, setGenre] = useState("")
+    const [genres, setGenres] = useState([])
 
     useEffect(() => { GetTrendingMovies(setTrending) }, [])
     useEffect(() => { GetTopRatedMovies(setTopRated) }, [])
@@ -23,8 +23,8 @@ export default function Router () {
                 trending={trending}
                 topRated={topRated}
                 upcoming={upcoming}
-                genre={genre}
-                setGenre={setGenre}
+                genres={genres}
+                setGenres={setGenres}
             />}/>
         </Routes>
         </BrowserRouter>
