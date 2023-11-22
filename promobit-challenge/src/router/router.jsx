@@ -4,12 +4,13 @@ import { GetTrendingMovies, GetTopRatedMovies, GetUpcomingMovies } from "../scri
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default function Router () {
-
-    const [filters, setFilters] = useState([]) 
+ 
+    const [search, setSearch] = useState("")
+    const [searchedMovies, setSearchedMovies] = useState([])
     const [trending, setTrending] = useState([])
     const [topRated, setTopRated] = useState([])
     const [upcoming, setUpcoming] = useState([])
-    const [genres, setGenres] = useState([])
+    const [genre, setGenre] = useState("")
 
     useEffect(() => { GetTrendingMovies(setTrending) }, [])
     useEffect(() => { GetTopRatedMovies(setTopRated) }, [])
@@ -23,8 +24,12 @@ export default function Router () {
                 trending={trending}
                 topRated={topRated}
                 upcoming={upcoming}
-                genres={genres}
-                setGenres={setGenres}
+                genre={genre}
+                search={search}
+                searchedMovies={searchedMovies}
+                setSearchedMovies={setSearchedMovies}
+                setSearch={setSearch}
+                setGenre={setGenre}
             />}/>
         </Routes>
         </BrowserRouter>

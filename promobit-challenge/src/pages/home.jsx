@@ -1,33 +1,45 @@
 import { Header } from "../components/header"
 import { Menu } from "../components/menu"
-import { MoviesCarousel } from "../components/moviesCarousel"
-
+import { MoviesContainer } from "../components/moviesContainer"
+import { SearchBar } from "../components/searchBar"
+import { TrendsContainer } from "../components/trendsContainer"
 
 export const Home = (props) => {
 
+    console.log(props.searchedMovies)
+
     return (
         <>
-            <Header />
+            <Header
+                setSearchedMovies={props.setSearchedMovies}
+                setGenre={props.setGenre}
+            />
             <Menu
-                genres={props.genres}
-                setGenres={props.setGenres}
+                genre={props.genre}
+                setGenre={props.setGenre}
             />
-            <MoviesCarousel
-                text={"Vistos recentemente"}
-                movies={props.upcoming}
+            <SearchBar
+                search={props.search}
+                setSearch={props.setSearch}
+                setSearchedMovies={props.setSearchedMovies}
             />
-            <div className="flex flex-col mt-[-5vh]">
-                <MoviesCarousel
-                    text={"Em alta"}
-                    movies={props.trending}
+            {props.searchedMovies.length > 0 &&
+               <>
+                    <MoviesContainer
+                        text={"Pesquisados"}
+                        setSearchedMovies={props.setSearchedMovies}
+                        searchedMovies={props.searchedMovies}
+                    />
+                </>
+            }
+
+            {props.searchedMovies.length < 1 &&
+                <TrendsContainer 
+                    upcoming={props.upcoming}
+                    trending={props.trending}
+                    topRated={props.topRated}
                 />
-            </div>
-            <div className="flex flex-col mt-[-5vh]">
-                <MoviesCarousel
-                    text={"Melhores avaliados"}
-                    movies={props.topRated}
-                />
-            </div>
+            }
         </>
     )
 }
