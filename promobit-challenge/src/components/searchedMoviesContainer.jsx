@@ -1,7 +1,7 @@
 import { MovieModel } from "./movieModel"
 import { RiArrowLeftSLine } from "react-icons/ri";
 
-export const MoviesContainer = (props) => {
+export const SearchedMoviesContainer = (props) => {
                
     return (
         <div className="flex flex-col">

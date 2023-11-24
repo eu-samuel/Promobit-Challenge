@@ -1,5 +1,6 @@
 import { genresList } from '../assets/API_CONTENT'
 import { MenuButton } from '../css/menuButton';
+import { GetMoviesByGenre } from '../scripts/getMovies';
 
 export const Menu = (props) => {
 
@@ -17,6 +18,13 @@ export const Menu = (props) => {
         }
     }
 
+    const sendGenre = (item) => {
+        props.setGenre({ name: item.name, id: item.id })
+        GetMoviesByGenre(props.setGenreMovies, props.page, item.id)
+
+    }
+
+
     const renderButton = (item) => {
 
         if (props.genre.id === item.id) {
@@ -31,7 +39,7 @@ export const Menu = (props) => {
             )
         } else {
             return <MenuButton
-                onClick={() => props.setGenre({ name: item.name, id: item.id })}
+                onClick={() => sendGenre(item)}
                 width={setWidth(item.name)}
                 className="bg-white border-gray-300 border-[2px] shadow-sm shadow-gray-300 text-black text-[13px] rounded-sm flex items-center h-[4vh] font-semibold p-2 w-[10vw] justify-center"
             >

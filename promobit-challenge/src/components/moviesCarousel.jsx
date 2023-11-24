@@ -3,7 +3,6 @@ import { MovieModel } from "./movieModel"
 
 export const MoviesCarousel = (props) => {
 
-
     return (
         <motion.div className="w-[100vw] flex flex-col mt-5 p-2 cursor-grab active:cursor-grabbing">
         <span className="text-[24px] font-bold text-gray-600 ml-[2.6vw] ">{props.text}:</span>

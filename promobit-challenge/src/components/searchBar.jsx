@@ -9,7 +9,7 @@ export const SearchBar = (props) => {
     }
 
     return (
-        <div className='flex items-center mt-[6vh] ml-[26.5vw]'>
+        <div className='flex items-center mt-[6vh] ml-[26vw]'>
         <input 
             type="text"
             name="search"

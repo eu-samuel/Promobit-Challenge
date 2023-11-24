@@ -1,14 +1,12 @@
-import { setMonth } from "../assets/API_CONTENT";
 import { FaStar } from "react-icons/fa";
 
 export const MovieModel = (props) => {
 
     const releaseDate = new Date(props.movie.release_date).toLocaleDateString()
     const splitedDate = releaseDate.trim().split("/");
-    const formatedDay = Number(releaseDate[0] + releaseDate[1])
 
     return (
-        <div className="flex flex-col items-center w-[8vw] font-bold font-roboto pb-4 hover:scale-[1.06] duration-200">
+        <div className="flex flex-col items-center w-[8vw] font-bold font-roboto pb-4 hover:scale-[1.1] duration-200">
             <img src={`https://image.tmdb.org/t/p/w200/${props.movie.poster_path}`}
                 className="w-[8vw] shadow-sm shadow-black rounded-md cursor-pointer" alt={`${props.movie.title}`} />
             <div className="flex mt-[1.5vh] gap-[.5vh] flex-col">

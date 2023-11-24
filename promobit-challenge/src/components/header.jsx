@@ -4,7 +4,7 @@ export const Header = (props) => {
 
     const clearFilters = () => {
         props.setSearchedMovies([])
-        props.setGenres([])
+        props.setGenre("")
     }
 
     return (

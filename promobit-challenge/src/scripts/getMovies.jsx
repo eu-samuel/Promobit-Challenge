@@ -88,8 +88,7 @@ export const GetMoviesByGenre = async (setArray, page, id) => {
         }
         )
         if (response) {
-            const array = response.data.results.filter(result => result.title.toLowerCase().includes(search.toLowerCase()) && result.title.toLowerCase().startsWith(search.toLowerCase()))
-            setArray(array);
+            setArray(response.data.results);
         }
     } catch (error) {
         console.log(error);
