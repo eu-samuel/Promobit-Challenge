@@ -4,31 +4,29 @@ import { pagesList } from "../assets/API_CONTENT";
 import { GetMoviesByGenre } from "../scripts/getMovies";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 
-
 export const MoviesByGenreContainer = (props) => {
 
-    console.log(props.sliceParams)
     const setPageFlow = (page) => {
         GetMoviesByGenre(props.setGenreMovies, page, props.genre.id)
         props.setPage(page)
     }
 
     const setDisplayBack = () => {
-        if (props.sliceParams.num1 >= 0) {
-            props.setSliceParams({
-                num1: props.sliceParams.num1 - 1,
-                num2: props.sliceParams.num2 - 1
-            })
-        } 
+        props.setPage(props.page - 1)
+        GetMoviesByGenre(props.setGenreMovies, props.page, props.genre.id)
+        props.setSliceParams({
+            num1: props.sliceParams.num1 - 1,
+            num2: props.sliceParams.num2 - 1
+        })
     }
 
     const setDisplayForward = () => {
-        if (props.sliceParams.num1 < 50) {
-            props.setSliceParams({
-                num1: props.sliceParams.num1 + 1,
-                num2: props.sliceParams.num2 + 1
-            })
-        }
+        props.setPage(props.page + 1)
+        GetMoviesByGenre(props.setGenreMovies, props.page, props.genre.id)
+        props.setSliceParams({
+            num1: props.sliceParams.num1 + 1,
+            num2: props.sliceParams.num2 + 1
+        })
     }
 
     return (
@@ -82,7 +80,13 @@ export const MoviesByGenreContainer = (props) => {
                     {props.genreMovies.filter((movie) => movie.poster_path !== null && movie.released_date !== "")
                         .map((movie, index) => {
                             return (
-                                <MovieModel key={index} movie={movie} />
+                                <MovieModel 
+                                    key={index} 
+                                    movie={movie} 
+                                    setPageType={props.setPageType}
+                                    selectedMovie={props.selectedMovie}
+                                    setSelectedMovie={props.setSelectedMovie} 
+                                />
                             )
                         })}
                 </div>

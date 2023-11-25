@@ -19,7 +19,12 @@ export const SearchedMoviesContainer = (props) => {
                     {props.searchedMovies.filter((movie) => movie.poster_path !== null && movie.released_date !== "")
                     .map((movie, index) => {
                         return (
-                            <MovieModel key={index} movie={movie} />
+                            <MovieModel 
+                                key={index} movie={movie} 
+                                setPageType={props.setPageType}
+                                selectedMovie={props.selectedMovie}
+                                setSelectedMovie={props.setSelectedMovie} 
+                            />
                         )
                     })}
                 </div>

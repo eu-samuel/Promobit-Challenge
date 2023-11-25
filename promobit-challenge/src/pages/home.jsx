@@ -10,12 +10,14 @@ export const Home = (props) => {
     return (
         <>
             <Header
-                setSearchedMovies={props.setSearchedMovies}
                 setGenre={props.setGenre}
+                setPageType={props.setPageType}
+                setGenreMovies={props.setGenreMovies}
+                setSearchedMovies={props.setSearchedMovies}
             />
             <Menu
-                genre={props.genre}
                 page={props.page}
+                genre={props.genre}
                 setGenre={props.setGenre}
                 setGenreMovies={props.setGenreMovies}
             />
@@ -25,22 +27,28 @@ export const Home = (props) => {
                 setSearchedMovies={props.setSearchedMovies}
             />
             {props.genreMovies.length > 0 && props.searchedMovies.length < 1 &&
-               <MoviesByGenreContainer
-                    genre={props.genre}
+                <MoviesByGenreContainer
                     page={props.page}
-                    sliceParams={props.sliceParams}
-                    setSliceParams={props.setSliceParams}
-                    genreMovies={props.genreMovies}
+                    genre={props.genre}
                     setPage={props.setPage}
+                    sliceParams={props.sliceParams}
+                    genreMovies={props.genreMovies}
+                    setPageType={props.setPageType}
+                    selectedMovie={props.selectedMovie}
+                    setSliceParams={props.setSliceParams}
                     setGenreMovies={props.setGenreMovies}
+                    setSelectedMovie={props.setSelectedMovie}
                 />
             }
             {props.searchedMovies.length > 0 && props.genreMovies.length < 1 &&
                 <>
                     <SearchedMoviesContainer
                         text={"Pesquisados"}
-                        setSearchedMovies={props.setSearchedMovies}
+                        setPageType={props.setPageType}
+                        selectedMovie={props.selectedMovie}
                         searchedMovies={props.searchedMovies}
+                        setSearchedMovies={props.setSearchedMovies}
+                        setSelectedMovie={props.setSelectedMovie}
                     />
                 </>
             }
@@ -50,6 +58,9 @@ export const Home = (props) => {
                     upcoming={props.upcoming}
                     trending={props.trending}
                     topRated={props.topRated}
+                    setPageType={props.setPageType}
+                    selectedMovie={props.selectedMovie}
+                    setSelectedMovie={props.setSelectedMovie}
                 />
             }
 
