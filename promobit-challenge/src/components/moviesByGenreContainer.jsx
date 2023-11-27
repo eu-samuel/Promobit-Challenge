@@ -1,8 +1,8 @@
 import { MovieModel } from "./movieModel"
+import { pagesList } from "../assets/exports";
 import { RiArrowLeftSLine } from "react-icons/ri";
-import { pagesList } from "../assets/API_CONTENT";
-import { GetMoviesByGenre } from "../scripts/getMovies";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import { GetMoviesByGenre } from "../requests/getMoviesByGenre";
 
 export const MoviesByGenreContainer = (props) => {
 

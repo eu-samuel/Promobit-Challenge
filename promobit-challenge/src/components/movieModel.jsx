@@ -1,5 +1,5 @@
 import { FaStar } from "react-icons/fa";
-import { GetMovieDetails } from "../scripts/getMovies";
+import { GetMovieDetails } from "../requests/getMovieDetails";
 
 
 export const MovieModel = (props) => {

@@ -1,47 +1,38 @@
-import { genresList } from '../assets/API_CONTENT'
+import { useContext } from 'react';
 import { MenuButton } from '../css/menuButton';
-import { GetMoviesByGenre } from '../scripts/getMovies';
+import { GlobalContext, genresList, setWidth, sendGenre } from '../assets/exports';
 
-export const Menu = (props) => {
 
-    const setWidth = (item) => {
+export const MenuComponent = () => {
 
-        if (item.length <= 6) {
-            return '5vw'
-        }
-        if (item.length > 6 && item.length < 9) {
-            return '6vw'
-        } if (item.length > 12) {
-            return '10vw'
-        } else {
-            return '8vw'
-        }
-    }
-
-    const sendGenre = (item) => {
-        props.setGenre({ name: item.name, id: item.id })
-        GetMoviesByGenre(props.setGenreMovies, props.page, item.id)
-
-    }
-
+    const context = useContext(GlobalContext)
+    const { store, setStore } = context.context
 
     const renderButton = (item) => {
 
-        if (props.genre.id === item.id) {
+        if (store.genre.id === item.id) {
             return (
-            <MenuButton
-                onClick={() => props.setGenre("")}
-                width={setWidth(item.name)}
-                className="bg-[#e0900f] text-white text-[13px] rounded-sm flex items-center h-[4vh] font-semibold p-2 w-[10vw] justify-center "
-            >
-                <span>{item.name}</span>
-            </MenuButton>
+                <MenuButton
+                    onClick={() => setStore({
+                        ...store,
+                        genre: {
+                            name: "",
+                            id: ""
+                        }
+                    })}
+                    width={setWidth(item.name)}
+                    className="bg-[#e0900f] text-white text-[13px] rounded-sm flex items-center
+                 h-[4vh] font-semibold p-2 w-[10vw] justify-center "
+                >
+                    <span>{item.name}</span>
+                </MenuButton>
             )
         } else {
             return <MenuButton
-                onClick={() => sendGenre(item)}
+                onClick={() => sendGenre(item, store, setStore)}
                 width={setWidth(item.name)}
-                className="bg-white border-gray-300 border-[2px] shadow-sm shadow-gray-300 text-black text-[13px] rounded-sm flex items-center h-[4vh] font-semibold p-2 w-[10vw] justify-center"
+                className="bg-white border-gray-300 border-[2px] shadow-sm shadow-gray-300
+                 text-black text-[13px] rounded-sm flex items-center h-[4vh] font-semibold p-2 w-[10vw] justify-center"
             >
                 <span>{item.name}</span>
             </MenuButton>
@@ -49,8 +40,8 @@ export const Menu = (props) => {
     }
 
     return (
-        <section className="bg-[#2D0C5E] h-[55vh] flex flex-col gap-[2vh] items-center justify-center font-roboto">
-            <p className="text-[48px] mt-[3vh] w-[50vw] text-center font-bold">Milhões de filmes, séries e pessoas para descobrir.
+        <section className="bg-[#2D0C5E] w-[100vw] h-[55vh] flex flex-col gap-[2vh] items-center justify-center font-roboto">
+            <p className="text-[3vw] mt-[5vh] w-[50vw] text-center font-bold">Milhões de filmes, séries e pessoas para descobrir.
                 Explore já.</p>
             <span className="text-[16px] font-[700] ">FILTRE POR:</span>
 
@@ -69,8 +60,8 @@ export const Menu = (props) => {
                     {genresList.slice(10, 18).map((item, index) => {
                         return (
                             <div key={index}>
-                            {renderButton(item)}
-                        </div>
+                                {renderButton(item)}
+                            </div>
 
                         )
                     })}
