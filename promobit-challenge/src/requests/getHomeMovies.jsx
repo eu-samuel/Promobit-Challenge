@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const GetHomeMovies = async (state, setState) => {
+export const GetHomeMovies = async (store, setState) => {
 
     try {
         const response1 = await axios.get('https://api.themoviedb.org/3/movie/now_playing?language=pt-BR&page=1', {
@@ -29,10 +29,10 @@ export const GetHomeMovies = async (state, setState) => {
         if (response1 && response2 && response3) {
 
             const newStore = {
-                ...state.store, 
-                recentMovies: [...response1.data.results], 
-                topRatedMovies: [...response2.data.results],
-                trendingMovies: [...response3.data.results]
+                ...store, 
+                recentMovies: [...response1.data.results.filter((movie) => movie.overview !== "")], 
+                topRatedMovies: [...response2.data.results.filter((movie) => movie.overview !== "")],
+                trendingMovies: [...response3.data.results.filter((movie) => movie.overview !== "")]
             }
             setState(newStore);
         }

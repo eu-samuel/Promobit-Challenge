@@ -4,29 +4,31 @@ export const useContextStates = () => {
     
     const [store, setStore] = useState({
         pageFlow: 1,
+        pageType: "lists",
         genre: {
             name: "",
             id: ""
         },
         search: "",
-        sliceParams: [0, 6],
         recentMovies: [],
         trendingMovies: [],
         topRatedMovies: [],
         byGenreMovies: [],
         searchedMovies: [],
         pageMovie: {
+            id: "",
             title: "",
             overview: "",
-            restriction: "",
+            certification: "",
             poster: "",
             rating: "",
             trailer: "",
             length: "",
-            roster: [],
+            cast: [],
+            crew: [],
             recommended: [],
             genres: [],
-            release_date: []
+            release_date: ""
         }
     })
         

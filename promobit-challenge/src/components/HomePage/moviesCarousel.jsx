@@ -12,15 +12,12 @@ export const MoviesCarousel = (props) => {
                     drag='x'
                     dragConstraints={{ right: 10, left: -2223 }}
                 >
-                    {props.movies.map((movie, index) => {
+                    {props.movies.map((movie) => {
                         
                         return (
                             <MovieModel 
-                                key={index}
+                                key={movie.title}
                                 movie={movie}
-                                setPageType={props.setPageType}
-                                selectedMovie={props.selectedMovie}
-                                setSelectedMovie={props.setSelectedMovie}
                             />
                         )
                     })}

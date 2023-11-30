@@ -9,15 +9,19 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 export default function Router() {
 
     const context = useContextStates()
-    
-    useEffect(() => { GetHomeMovies(context, context.setStore) }, [])
-    console.log(context)
+    console.log(context.store)
+
+    useEffect(() => { GetHomeMovies(context.store, context.setStore) }, [])
 
     return (
         <GlobalContext.Provider value={{ context }}>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={ < Home /> } />
+                    <Route path="/" element={context.store.pageType === "lists" ?
+                        < Home />
+                        :
+                        <Movie />
+                    } />
                 </Routes>
             </BrowserRouter>
         </GlobalContext.Provider>

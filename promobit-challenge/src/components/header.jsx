@@ -6,27 +6,19 @@ export const HeaderComponent = (props) => {
 
     
     const context = useContext(GlobalContext)
-    const { store } = context.context
-
-    const clearFilters = () => {
-        setMovies({
-            recent: movies.recent,
-            trending: movies.trending,
-            topRated: movies.topRated,
-            bySearch: [],
-            byGenre: []
-        })
-        setSettings({
-
-        })
-    }
+    const { store, setStore } = context.context
 
     return (
-        <header className ="absolute top-0 w-[100vw] z-50 bg-[#5C16C5] p-[.8vw]">
+        <header className ="fixed top-0 w-[100vw] z-50 bg-[#5C16C5] p-[.8vw]">
         <img src={Logo} 
             alt="Logo da TMDB" 
             className="w-[7vw] ml-[5vw] cursor-pointer" 
-            onClick={() => clearFilters()}
+            onClick={() => setStore({
+                ...store,
+                pageType: "lists",
+                genre: "",
+                searchedMovies: []
+            })}
         />
         </header>
     )

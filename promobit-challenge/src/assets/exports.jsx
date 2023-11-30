@@ -1,12 +1,13 @@
 import { createContext } from "react";
-import { MenuComponent } from "../components/menu";
-import { SearchBar } from "../components/searchBar";
+import { MenuComponent } from "../components/HomePage/menu";
+import { SearchBar } from "../components/HomePage/searchBar";
 import { HeaderComponent } from "../components/header";
+import { GetMovieDetails } from "../requests/getMovieDetails";
 import { GetMoviesByGenre } from "../requests/getMoviesByGenre";
-import { TrendsContainer } from "../components/trendsContainer";
-import { MoviesByGenreContainer } from "../components/moviesbyGenreContainer";
-import { SearchedMoviesContainer } from "../components/searchedMoviesContainer";
+import { TrendsContainer } from "../components/HomePage/trendsContainer";
 import { GetSearchedMovies } from "../requests/getSearchedMovies";
+import { MoviesByGenreContainer } from "../components/HomePage/moviesByGenreContainer";
+import { SearchedMoviesContainer } from "../components/HomePage/searchedMoviesContainer";
 
 // Components Exports
 export const Search = SearchBar;
@@ -20,8 +21,7 @@ export const Searched = SearchedMoviesContainer;
 
 // Arrays exports
 
-export const pagesList = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 
-    26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50 ];
+export const pagesList = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 
 export const genresList = [
     { name: "Ação", id: 28 }, 
@@ -63,20 +63,29 @@ export const setWidth = (item) => {
 
 
 export const sendGenre = (item, store, setStore) => {
-    setStore(
-        {...store, 
-        genre: {
-            name: item.name, 
-            id: item.id
-        }
-    })
-    GetMoviesByGenre(store, setStore, store.pageFlow, item.id)
+    GetMoviesByGenre(store, setStore, store.pageFlow, item)
 };
 
-export const startSearch = (store, setStore) => {
-    GetSearchedMovies(setStore, store.search)
-    setStore({
-        ...store,
-        search: ""
-    })
+
+export const splitDate = (date) => {
+    const releaseDate = new Date(date).toLocaleDateString()
+    const splitedDate = releaseDate.trim().split("/");
+    return splitedDate
+}
+
+export const formatedDate = (date) => {
+    const releaseDate = date.split("-")
+    return `${releaseDate[2].slice(0,2)}/${releaseDate[1]}/${releaseDate[0]}`
+}
+
+export const setRatingColor = (score) => {
+    if(score >= 7) {
+        return "text-[1.5vw] font-bold text-white bg-[#1bb30d] w-[3.5vw] h-[7vh] items-center justify-center flex rounded-[10vw]"
+    } if(score < 7 && score >= 5 ) {
+        return "text-[1.5vw] font-bold text-white bg-[#ce8e0f] w-[3.5vw] h-[7vh] items-center justify-center flex rounded-[10vw]"
+    } if(score < 5 && score >=3 ) {
+        return "text-[1.5vw] font-bold text-white bg-[##FF6633] w-[3.5vw] h-[7vh] items-center justify-center flex rounded-[10vw]"
+    } if(score < 3 ) {
+        return "text-[1.5vw] font-bold text-white bg-[#DD0000] w-[3.5vw] h-[7vh] items-center justify-center flex rounded-[10vw]"
+    }
 }

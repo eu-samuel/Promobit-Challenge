@@ -1,20 +1,16 @@
+import { useContext } from "react";
 import { FaStar } from "react-icons/fa";
-import { GetMovieDetails } from "../requests/getMovieDetails";
-
+import { GlobalContext, splitDate } from "../../assets/exports";
+import { GetMovieDetails } from "../../requests/getMovieDetails";
 
 export const MovieModel = (props) => {
 
-    const releaseDate = new Date(props.movie.release_date).toLocaleDateString()
-    const splitedDate = releaseDate.trim().split("/");
-
-    const selectMovie = () => {
-        props.setPageType("movie")
-        GetMovieDetails(props.movie, props.setSelectedMovie, props.movie.id)
-    }
+    const context = useContext(GlobalContext)
+    const { store, setStore } = context.context
 
     return (
         <div
-            onClick={() => selectMovie()}
+            onClick={() => GetMovieDetails(store, setStore, props.movie)}
             className="flex flex-col items-center w-[8vw] font-bold font-roboto pb-4 hover:scale-[1.1] duration-200"
         >
             <img src={`https://image.tmdb.org/t/p/w200/${props.movie.poster_path}`}
@@ -25,7 +21,11 @@ export const MovieModel = (props) => {
                 </span>
                 <div className="flex items-center gap-[3vw] text-[#646464] font-[600] font-roboto text-[12px]">
                     <span>
-                        {`${splitedDate[2]}`}
+                        {props.movie.release_date ? 
+                        <>{`${splitDate(props.movie.release_date)[2]}`}</>
+                            :
+                            "Indisponível no Brasil"
+                        }
                     </span>
                     <div className="flex items-center gap-[.4vw]">
                         <FaStar className="text-yellow-500 relative top-[-.2vh]" />

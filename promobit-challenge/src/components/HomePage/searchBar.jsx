@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { BsSearch } from 'react-icons/bs'
-import { startSearch, GlobalContext } from '../assets/exports'
+import { GlobalContext } from '../../assets/exports'
+import { GetSearchedMovies } from '../../requests/getSearchedMovies'
 
 
 export const SearchBar = () => {
@@ -25,7 +26,7 @@ export const SearchBar = () => {
         />
         <BsSearch 
             className="text-gray-500 z-50 text-[20px] relative right-[3vw] cursor-pointer"
-            onClick={() => startSearch(store, setStore)}
+            onClick={() =>  GetSearchedMovies(store.search, store, setStore)}
         />
         </div>
     )
