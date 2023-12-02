@@ -27,12 +27,11 @@ export const GetHomeMovies = async (store, setState) => {
         }
         )
         if (response1 && response2 && response3) {
-
             const newStore = {
                 ...store, 
-                recentMovies: [...response1.data.results.filter((movie) => movie.overview !== "")], 
-                topRatedMovies: [...response2.data.results.filter((movie) => movie.overview !== "")],
-                trendingMovies: [...response3.data.results.filter((movie) => movie.overview !== "")]
+                recentMovies: [...response1.data.results.filter((movie) => movie.overview !== "" && movie.backdrop_path !== null)], 
+                topRatedMovies: [...response2.data.results.filter((movie) => movie.overview !== "" && movie.backdrop_path !== null)],
+                trendingMovies: [...response3.data.results.filter((movie) => movie.overview !== "" && movie.backdrop_path !== null)]
             }
             setState(newStore);
         }

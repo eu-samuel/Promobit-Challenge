@@ -9,7 +9,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 export default function Router() {
 
     const context = useContextStates()
-    console.log(context.store)
 
     useEffect(() => { GetHomeMovies(context.store, context.setStore) }, [])
 

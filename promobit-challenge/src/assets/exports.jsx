@@ -1,11 +1,10 @@
 import { createContext } from "react";
+import defaultImg from '../images/default-actor.jpg'
 import { MenuComponent } from "../components/HomePage/menu";
 import { SearchBar } from "../components/HomePage/searchBar";
 import { HeaderComponent } from "../components/header";
-import { GetMovieDetails } from "../requests/getMovieDetails";
 import { GetMoviesByGenre } from "../requests/getMoviesByGenre";
 import { TrendsContainer } from "../components/HomePage/trendsContainer";
-import { GetSearchedMovies } from "../requests/getSearchedMovies";
 import { MoviesByGenreContainer } from "../components/HomePage/moviesByGenreContainer";
 import { SearchedMoviesContainer } from "../components/HomePage/searchedMoviesContainer";
 
@@ -17,7 +16,7 @@ export const Trends = TrendsContainer;
 export const Genres = MoviesByGenreContainer;
 export const GlobalContext = createContext();
 export const Searched = SearchedMoviesContainer;
-
+export const defaultActor = defaultImg
 
 // Arrays exports
 
@@ -67,10 +66,10 @@ export const sendGenre = (item, store, setStore) => {
 };
 
 
-export const splitDate = (date) => {
+export const getYearDate = (date) => {
     const releaseDate = new Date(date).toLocaleDateString()
     const splitedDate = releaseDate.trim().split("/");
-    return splitedDate
+    return splitedDate[2]
 }
 
 export const formatedDate = (date) => {
@@ -87,5 +86,53 @@ export const setRatingColor = (score) => {
         return "text-[1.5vw] font-bold text-white bg-[##FF6633] w-[3.5vw] h-[7vh] items-center justify-center flex rounded-[10vw]"
     } if(score < 3 ) {
         return "text-[1.5vw] font-bold text-white bg-[#DD0000] w-[3.5vw] h-[7vh] items-center justify-center flex rounded-[10vw]"
+    }
+}
+
+
+export const minsToHours = (mins) => {
+    const hours = Math.floor(mins/ 60);          
+    const min = mins % 60;
+    const hoursText = (`${hours}`).slice(-2);
+    const minsText = (`00${min}`).slice(-2);
+    
+    return `${hoursText }h ${minsText}m`;
+  };
+
+export const formatCertification = (certification) => {
+    if(certification !== "L") { 
+        return `${certification} anos`
+    } else if (certification.length < 1) {
+        return "Classificação indisponível"
+    } else {
+        return "Livre"  
+    } 
+}
+
+export const goBack = (store, setStore, arr1, arr2, params) => {
+    if(arr2[0] === 0 && arr2[1] === 7) {
+        setStore({
+            ...store,
+            [params]: [arr1.length-7, arr1.length]
+        })
+    } else {
+        setStore({
+            ...store,
+            [params]: [arr2[0] - 1, arr2[1] - 1]
+        })
+    }
+}
+
+export const goForward = (store, setStore, arr1, arr2, params) => {
+    if(arr2[0] >= 0 && arr2[1] <= arr1.length) {
+        setStore({
+            ...store,
+            [params]:[arr2[0] + 1, arr2[1] + 1]
+        })
+    } else {
+        setStore({
+            ...store,
+            [params]:[0, 7]
+        })
     }
 }

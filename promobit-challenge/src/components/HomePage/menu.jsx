@@ -41,11 +41,13 @@ export const MenuComponent = () => {
 
     return (
         <section className="bg-[#2D0C5E] w-[100vw] h-[55vh] flex flex-col gap-[2vh] items-center justify-center font-roboto">
-            <p className="text-[3vw] mt-[5vh] w-[50vw] text-center font-bold">Milhões de filmes, séries e pessoas para descobrir.
-                Explore já.</p>
-            <span className="text-[16px] font-[400] ">FILTRE POR:</span>
+            <p className="text-[3vw] text-white mt-[5vh] w-[50vw] flex flex-col gap-[1vh] text-center font-bold">
+                Milhões de filmes, séries e pessoas para descobrir.
+                Explore já.
+                <span className="text-[16px] font-[400] ">FILTRE POR:</span>
+            </p>
 
-            <div className="flex flex-col mt-[.6vh] ml-[3vw] w-[75vw]">
+            <div className="flex flex-col ml-[3vw] w-[75vw]">
                 <ul className="flex w-[95vw] gap-[1vw] mt-[2vh] mb-[2vh]">
                     {genresList.slice(0, 10).map((item, index) => {
                         return (

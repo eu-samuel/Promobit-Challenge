@@ -10,6 +10,10 @@ export const useContextStates = () => {
             id: ""
         },
         search: "",
+        recentParams: [0,7],
+        trendsParams: [0,7],
+        topRatedParams: [0,7],
+        castParams: [0,7],
         recentMovies: [],
         trendingMovies: [],
         topRatedMovies: [],

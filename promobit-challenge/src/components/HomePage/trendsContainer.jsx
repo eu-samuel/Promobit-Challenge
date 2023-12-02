@@ -12,17 +12,23 @@ export const TrendsContainer = () => {
             <MoviesCarousel 
                 text={"Vistos recentemente"} 
                 movies={store.recentMovies}
+                slice={store.recentParams}
+                params={"recentParams"}
             />
             <div className="flex flex-col mt-[-5vh]">
                 <MoviesCarousel 
                     text={"Em alta"} 
                     movies={store.trendingMovies}
+                    slice={store.trendsParams}
+                    params={"trendsParams"}
                 />
             </div>
             <div className="flex flex-col mt-[-5vh]">
                 <MoviesCarousel 
                     text={"Melhores avaliados"} 
                     movies={store.topRatedMovies}
+                    slice={store.topRatedParams}
+                    params={"topRatedParams"}
                 />
             </div>
         </div>

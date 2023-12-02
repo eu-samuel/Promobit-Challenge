@@ -37,7 +37,8 @@ export const GetMovieDetails = async (state, setState, movie) => {
             }
         })
  
-        if (details && credits && trailer && recommendations) {
+        if (release_date && details && credits && trailer && recommendations) {
+            console.log(details.data)
 
             const filtered = release_date.data.results.filter(country => country.iso_3166_1 === "BR")
  
@@ -53,7 +54,7 @@ export const GetMovieDetails = async (state, setState, movie) => {
                 poster: movie.poster_path,
                 rating: movie.vote_average,
                 trailer: `https://www.youtube.com/embed/${trailer.data.results[0].key}?si=${trailer.data.results[0].id}`,
-                length: "",
+                length: details.data.runtime,
                 cast: credits.data.cast,
                 crew: credits.data.crew,
                 recommended: recommendations.data.results.filter((movie) => movie.backdrop_path !== null),
@@ -63,7 +64,7 @@ export const GetMovieDetails = async (state, setState, movie) => {
             });
         }
     } catch (error) {
-        alert(error);
+        alert(`Perdão, não possuímos ainda informações suficientes quanto a esse filme.`);
     };
 
 }

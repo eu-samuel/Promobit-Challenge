@@ -1,19 +1,24 @@
-import { motion } from 'framer-motion'
+import { useContext } from "react"
 import { MovieModel } from "./movieModel"
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { GlobalContext, goBack, goForward } from "../../assets/exports"
 
 export const MoviesCarousel = (props) => {
 
-    return (
-        <motion.div className="w-[100vw] flex flex-col mt-5 p-2 cursor-grab active:cursor-grabbing">
-            <span className="text-[24px] font-bold text-gray-600 ml-[2.6vw] ">{props.text}:</span>
+    const context = useContext(GlobalContext)
+    const { store, setStore } = context.context
 
-            <motion.div className="max-w-[80vw]">
-                <motion.div id="carousel" className="flex mt-[2vh] ml-[2.8vw] gap-[4vw]"
-                    drag='x'
-                    dragConstraints={{ right: 10, left: -2223 }}
-                >
-                    {props.movies.map((movie) => {
-                        
+    return (
+        <div className="w-[100vw] flex flex-col mt-5 p-2">
+            <span className="text-[24px] font-bold text-gray-600 ml-[3.6vw] ">{props.text}:</span>
+
+            <div className="max-w-[93vw]">
+                 <IoIosArrowBack 
+                            className="text-black absolute mt-[13vh] ml-[.5vw] cursor-pointer  text-[2vw]"
+                            onClick={() => goBack(store, setStore, props.movies, props.slice, props.params)}
+                />
+                <div id="carousel" className="flex mt-[2vh] ml-[3.8vw] gap-[4vw]">
+                    {props.movies.slice(props.slice[0], props.slice[1]).map((movie) => {
                         return (
                             <MovieModel 
                                 key={movie.title}
@@ -21,8 +26,13 @@ export const MoviesCarousel = (props) => {
                             />
                         )
                     })}
-                </motion.div>
-            </motion.div>
-        </motion.div>
+                </div>
+                
+            </div>
+            <IoIosArrowForward
+                            className="text-black absolute mt-[18.5vh] ml-[94.5vw] cursor-pointer text-[2vw]"
+                            onClick={() => goForward(store, setStore, props.movies, props.slice, props.params)}
+                />
+        </div>
     )
 }

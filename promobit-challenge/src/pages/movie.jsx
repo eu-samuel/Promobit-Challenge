@@ -1,12 +1,24 @@
+import {
+    Header,
+    formatedDate,
+    getYearDate,
+    GlobalContext,
+    setRatingColor,
+    minsToHours,
+    formatCertification,
+    goBack,
+    goForward
+} from "../assets/exports";
 import { useContext } from "react";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { CrewContainer } from "../components/MoviePage/crewContainer";
 import { CastContainer } from "../components/MoviePage/castContainer";
 import { RecommendsContainer } from "../components/MoviePage/recommendsContainer";
-import { Header, formatedDate, splitDate, GlobalContext, setRatingColor } from "../assets/exports";
+
 export const Movie = () => {
 
     const context = useContext(GlobalContext)
-    const { store } = context.context
+    const { store, setStore } = context.context
 
     return (
         <>
@@ -16,14 +28,14 @@ export const Movie = () => {
                     <img src={`https://image.tmdb.org/t/p/w400/${store.pageMovie.poster}`}
                         className="w-[23vw] shadow-md shadow-black rounded-md cursor-pointer" alt={`${store.pageMovie.title}`} />
 
-                    <article className="flex absolute top-[10vh] left-[32vw] flex-col gap-[3vh]">
+                    <article className="flex absolute text-white top-[10vh] left-[32vw] flex-col gap-[3vh]">
                         <div className="flex flex-col">
                             <p className="text-[32px] font-roboto font-bold w-[60vw]">
-                                {store.pageMovie.title} ({splitDate(store.pageMovie.release_date)[2]})
+                                {store.pageMovie.title} ({getYearDate(store.pageMovie.release_date[0].release_dates[0].release_date)})
                             </p>
 
                             <div className="flex text-[16px] items-center gap-[.5vw]">
-                                <span>{store.pageMovie.certification} anos</span>
+                                {formatCertification(store.pageMovie.certification)}
                                 <p className="flex gap-[.5vw]">
                                     <span> • </span>
                                     {formatedDate(store.pageMovie.release_date[0].release_dates[0].release_date)} (BR)
@@ -38,6 +50,7 @@ export const Movie = () => {
                                         </span>
                                     ))}
                                 </div>
+                                <span>• {minsToHours(store.pageMovie.length)}</span>
                             </div>
                         </div>
                         <div className="flex items-center w-[20vw] gap-[1vw]">
@@ -46,6 +59,7 @@ export const Movie = () => {
                                     {Number(store.pageMovie.rating.toString().substr(0, 3))}
                                 </span>
                             </div>
+
                             <span className="w-[7vw] font-[400] text-[.94vw]">Avaliação dos usuários</span>
                         </div>
                         <div className="flex flex-col gap-[.5vh]">
@@ -59,12 +73,25 @@ export const Movie = () => {
                 </div>
             </section>
 
-            <section className=" ml-[7vw] font-roboto flex flex-col text-black mt-[13vh] gap-[5vh]">
+            <section className=" ml-[7vw] font-roboto flex flex-col text-black mt-[13vh] gap-[4vh]">
 
-                <div>
+                <div className="flex">
+                    <div
+                        className="absolute z-10 bg-white mt-[6vh] flex hover:bg-gray-200
+                justify-center items-center cursor-pointer text-[2vw] left-0 w-[7vw] h-[37.2vh]"
+                        onClick={() => goBack(store, setStore, store.pageMovie.cast, store.castParams, "castParams")}
+                    >
+                        <IoIosArrowBack />
+                    </div>
                     <CastContainer
                         cast={store.pageMovie.cast}
+                        slice={store.castParams}
                     />
+                    <div className="absolute z-10 bg-white mt-[6vh] flex hover:bg-gray-200
+                   justify-center items-center cursor-pointer text-[2vw] right-0 w-[7vw] h-[37.2vh]"
+                        onClick={() => goForward(store, setStore, store.pageMovie.cast, store.castParams, "castParams")}>
+                        <IoIosArrowForward />
+                    </div>
                 </div>
 
                 <div className="flex flex-col gap-[1.5vh]">
@@ -72,11 +99,11 @@ export const Movie = () => {
                         Trailer
                     </span>
 
-                    <iframe 
-                        width="660" height="380" 
+                    <iframe
+                        width="660" height="380"
                         src={`${store.pageMovie.trailer}`}
-                        title={`${store.pageMovie.title}`} 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        title={`${store.pageMovie.title}`}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
                     />
                 </div>
@@ -85,10 +112,10 @@ export const Movie = () => {
                     <span className="font-bold text-[1.6vw]">
                         Recomendações
                     </span>
-                        <RecommendsContainer
-                            recommends={store.pageMovie.recommended}
-                        />
-                    </div>
+                    <RecommendsContainer
+                        recommends={store.pageMovie.recommended}
+                    />
+                </div>
             </section>
         </>
     )
